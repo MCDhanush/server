@@ -231,7 +231,7 @@ export const updateAccessToken = CatchAsyncError(
       req.user = user;
 
       res.cookie("access_token", accessToken, accessTokenOptions);
-      res.cookie("access_token", refreshToken, refreshTokenOptions);
+      res.cookie("refresh_token", refreshToken, refreshTokenOptions);
 
       // send the response
       res.status(200).json({
@@ -292,17 +292,9 @@ interface IUpdateUserInfo {
 export const updateUserInfo = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, email } = req.body as IUpdateUserInfo;
+      const { name } = req.body as IUpdateUserInfo;
       const userId = req.user?._id;
       const user = await userModel.findById(userId);
-
-      if (email && user) {
-        const isEmailExist = await userModel.findOne({ email });
-        if (isEmailExist) {
-          return next(new ErrorHandler("Email already exist", 400));
-        }
-        user.email = email;
-      }
 
       if (name && user) {
         user.name = name;

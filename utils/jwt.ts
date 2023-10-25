@@ -11,11 +11,11 @@ interface ITokenOptions {
   secure?: boolean;
 }
 
-const accessTokenExpire = parseInt(
+export const accessTokenExpire = parseInt(
   process.env.ACCESS_TOKEN_EXPIRE || "300",
   10
 );
-const refreshTokenExpire = parseInt(
+export const refreshTokenExpire = parseInt(
   process.env.REFRESH_TOKEN_EXPIRE || "1200",
   10
 );
