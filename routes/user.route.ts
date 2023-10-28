@@ -6,15 +6,15 @@ import {
   logoutUser,
   registrationUser,
   socialAuth,
-  updateAccessToken,
   updateUserInfo,
   updatePassword,
   updateProfilePicture,
   updateUserRole,
   deleteUser,
+  getAllUsers,
 } from "../controllers/user.controllers";
 import { IsAuthenticated, authorizeRoles } from "../middleware/auth";
-import { getAllUsers } from "../controllers/course.controller";
+// import { getAllUsers } from "../controllers/course.controller";
 const userRouter = express.Router();
 
 // for sending mail to routes will helps to connect
@@ -26,7 +26,7 @@ userRouter.post("/login", loginUser);
 
 userRouter.get("/logout", IsAuthenticated, logoutUser);
 
-userRouter.get("/refresh", updateAccessToken);
+// userRouter.get("/refresh", updateAccessToken);
 
 userRouter.get("/me", IsAuthenticated, getUserInfo);
 
@@ -48,6 +48,7 @@ userRouter.get(
 userRouter.put(
   "/update-user",
   IsAuthenticated,
+  // updateAccessToken,
   authorizeRoles("admin"),
   updateUserRole
 );
@@ -55,6 +56,7 @@ userRouter.put(
 userRouter.delete(
   "/delete-user/:id",
   IsAuthenticated,
+  // updateAccessToken,
   authorizeRoles("admin"),
   deleteUser
 );

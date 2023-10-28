@@ -3,6 +3,8 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { CatchAsyncError } from "./catchAsyncError";
 import ErrorHandler from "../utils/ErrorHandler";
 import { redis } from "../utils/redis";
+import { decode } from "punycode";
+import { updateAccessToken } from "../controllers/user.controllers";
 
 // authentication user (logout)
 export const IsAuthenticated = CatchAsyncError(
@@ -15,23 +17,32 @@ export const IsAuthenticated = CatchAsyncError(
       );
     }
 
-    const decoded = jwt.verify(
-      access_token,
-      process.env.ACCESS_TOKEN as string
+    const decoded = jwt.decode(
+      access_token
+      // process.env.ACCESS_TOKEN as string
     ) as JwtPayload;
 
     if (!decoded) {
       return next(new ErrorHandler("access token is not valid", 400));
     }
 
-    const user = await redis.get(decoded.id);
+    // check if the access token  is expired
+    if (decoded.exp && decoded.exp <= Date.now() / 1000) {
+      try {
+        await updateAccessToken(req, res, next);
+      } catch (error: any) {
+        return next(error);
+      }
+    } else {
+      const user = await redis.get(decoded.id);
 
-    if (!user) {
-      return next(new ErrorHandler("user not found", 400));
+      if (!user) {
+        return next(new ErrorHandler("user not found", 400));
+      }
+
+      req.user = JSON.parse(user);
+      next();
     }
-
-    req.user = JSON.parse(user);
-    next();
   }
 );
 

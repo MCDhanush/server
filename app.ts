@@ -9,6 +9,16 @@ import courseRouter from "./routes/course.route";
 import orderRouter from "./routes/order.route";
 import notificationRoute from "./routes/notificatioin.route";
 import layoutRouter from "./routes/layout.route";
+import { rateLimit } from "express-rate-limit";
+
+// api requetds limit
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  standardHeaders: "draft-7",
+  legacyHeaders: false,
+});
+
 // body parser step1
 app.use(express.json({ limit: "50mb" }));
 
@@ -43,5 +53,8 @@ app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new Error(`Route ${req.originalUrl} not found`) as any;
   next(err);
 });
+
+// Apply the rate limiting middleware to all requests.
+app.use(limiter);
 
 app.use(ErrorMiddleware);

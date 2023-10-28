@@ -13,12 +13,10 @@ export const createCourse = CatchAsyncError(
   }
 );
 
-// get all users
-
+// get all course
 export const getAllCourseService = async (res: Response) => {
   const courses = await CourseModel.find().sort({ createdAt: -1 });
-
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     courses,
   });

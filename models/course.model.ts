@@ -42,11 +42,11 @@ interface ICourse extends Document {
   level: string;
   demoUrl: string;
   benefits: { title: string }[];
-  prerequisites: { title: string };
+  prerequisites: { title: string }[];
   reviews: IReview[];
   courseData: ICourseData[];
   ratings?: number;
-  purchsed?: number;
+  purchased?: number;
 }
 
 const reviewSchema = new Schema<IReview>({
@@ -127,7 +127,7 @@ const courseSchema = new Schema<ICourse>({
     type: Number,
     default: 0,
   },
-  purchsed: {
+  purchased: {
     type: Number,
     default: 0,
   },

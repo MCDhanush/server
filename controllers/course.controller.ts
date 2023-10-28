@@ -107,25 +107,13 @@ export const getSingleCourse = CatchAsyncError(
 export const getAllCourses = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const isCacheExist = await redis.get("allcourse");
-      if (isCacheExist) {
-        const course = JSON.parse(isCacheExist);
-
-        res.status(201).json({
-          success: true,
-          course,
-        });
-      } else {
-        const course = await CourseModel.find().select(
-          "-courseData.videoUrl -courseData.suggestioin -courseData.questions -courseData.links"
-        );
-
-        await redis.set("allcourses", JSON.stringify(course));
-        res.status(200).json({
-          success: true,
-          course,
-        });
-      }
+      const course = await CourseModel.find().select(
+        "-courseData.videoUrl -courseData.suggestioin -courseData.questions -courseData.links"
+      );
+      res.status(200).json({
+        success: true,
+        course,
+      });
     } catch (error: any) {
       return next(new ErrorHandler(error.message, 500));
     }
@@ -253,7 +241,7 @@ export const addAnswer = CatchAsyncError(
       };
 
       // add this answer to our course content
-      question.questionReplies.push(newAnswer);
+      // question.questionReplies.push(newAnswer);
 
       await course?.save();
 
@@ -403,7 +391,7 @@ export const addReplyToReview = CatchAsyncError(
 
 // get all course----only for admins
 
-export const getAllUsers = CatchAsyncError(
+export const getAdminAllCourses = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       getAllCourseService(res);
