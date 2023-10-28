@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order confirmation</title>
+
+    <style>
+        body{
+            font-family:"sans-serif";
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+max-width: 600px;
+height: 100vh; margin: auto;
+padding: 20px;
+background-color:
+#4f5ef1;
+box-shadow: 4px 8px rgba(0, 0, 0, 0.1);
+color: #ffffff;
+}
+.message{
+text-align: center;
+font-size: 18px; 
+margin-bottom: 20px; 
+padding-top: 50px;
+}
+.course-name {
+font-size: 24px;
+margin-bottom: 10px;
+} 
+.purchase-info {
+font-size: 16px;
+} 
+.total {
+font-size: 18px; 
+text-align: right; 
+margin-top: 20px;
+} 
+.footer {
+text-align: center; 
+margin-top: 100px;
+color: #fff;
+}
+
+.flex{
+    display: flex;
+    display: inline-block;
+    color: #fff;
+}
+.footer>p> a { 
+    text-decoration: none; 
+    display: inline-block; 
+    color: #fff;
+}
+.flex h4 {
+font-weight: 400;
+ margin-bottom: 5px;
+}
+.flex.lg {
+width: 85%;
+margin: auto;
+border-bottom: none;
+}
+.first-td {
+text-transform: uppercase;
+ color: #000006;
+  padding: 5px 0px;
+font-size: 16px;
+width: 1%;
+}
+.first-td {
+font-weight: 600 !important;
+} 
+.second-td{
+font-weight: 500 !important;
+ color: #000ee0af; 
+ font-size: 15px;}
+.title{
+    font-size: 16px !important
+}
+table {
+ border-collapse: collapse;
+width: 100%;
+}
+td {
+padding: 10px; text-align: center; width: 28133%;
+}
+td.col-2 {
+width: 100%;
+text-align: left; padding: 0px;
+margin: 0;}
+
+.m-auto {
+width: 100%; margin: auto; }
+.table-row {
+width: 70%; display: block; margin: auto; padding: 10px 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="message-sm">
+<h1>Your ELearning order is confirmed!</h1>
+ <p> And we're just as excited as you are.</p>
+</div>
+<br/>
+<br/>
+<div class="course-info">
+<h4>Here's what you ordered:</h4>
+<table style="border-bottom: 1px solid #0000002f;">
+<tr>
+<td>
+Order #:<%= order._id %>
+</td>
+<td>
+    <%= order.data %>
+</td>
+</tr>
+</table>
+<table style="width: 90%; margin: auto; display: block">
+<tr>
+<td class="first-td">Item</td>
+<td class="first-td">Qty</td>
+</tr>
+<td class="first-td">cost</td>
+</table>
+<table style="width: 90%; margin: auto; display: block">
+<tr class="second-td" >$<%order.name> </tr>
+<td class="second-td">1</td>
+<td class="second-td"> $<%order.price> </td>
+</tr>
+</table>
+
+<table class="table-row" style="border-top: 1px solid #00000029;">
+<tr>
+<td class="col-2">Subtotal:</td>
+<td class="col-2">$ order.price></td>
+</tr>
+</table>
+<table class="table-row" style="margin-top: -20px;">
+<tr>
+<td class="col-2">Total:</td>
+<td class="col-2">$ order.price</td>
+</tr>
+</table>
+</div>
+<div class="footer">
+<p>
+If you have any questions, please contact our support team at <a href="mailto:dhanusmc93@gmail.com">dhanusmc93@gmail.com</a>
+</p>
+<p>&copy; 2023 Elearning. All rights reserved.</p>
+</div>
+</div>
+</body>
+</html>
