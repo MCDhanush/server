@@ -28,8 +28,19 @@ app.use(cookieParser());
 // cors =>cross origin resource sharing-s3
 app.use(
   cors({
-    origin: ["https://resplendent-faloodeh-66ed07.netlify.app/"],
+    origin: ["https://resplendent-faloodeh-66ed07.netlify.app"],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Origin",
+      "X-Requested-With",
+      "Accept",
+      "x-client-key",
+      "x-client-token",
+      "x-client-secret",
+      "Authorization",
+    ],
   })
 );
 
