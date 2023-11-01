@@ -28,7 +28,7 @@ app.use(cookieParser());
 // cors =>cross origin resource sharing-s3
 app.use(
   cors({
-    origin: "",
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
