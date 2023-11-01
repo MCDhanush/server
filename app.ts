@@ -28,7 +28,7 @@ app.use(cookieParser());
 // cors =>cross origin resource sharing-s3
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["https://resplendent-faloodeh-66ed07.netlify.app/"],
     credentials: true,
   })
 );
